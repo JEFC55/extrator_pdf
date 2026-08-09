@@ -1,6 +1,6 @@
 from typing import NoReturn
 from pathlib import Path
-from ..downloader import DownloaderPDF
+from downloader import DownloaderPDF
 
 
 def inicializador() -> NoReturn:
