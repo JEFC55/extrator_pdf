@@ -1,30 +1,19 @@
 import requests
 from pathlib import Path
-
-destino:Path = Path("Banco de Dados (univesp)/")
+from downloader import DownloaderPDF
+aula_caminho = "Banco de Dados (univesp)"
+destino: Path = Path(f"{aula_caminho}/")
 destino.mkdir(exist_ok=True)
-i:int=1
-while i <=9:
-
+i: int = 1
+while True:
     if i < 10:
-        text:str = str(f"0{i}")
+        text: str = str(f"0{i}")
     else:
-        text:str = i
-    print(f"Slide da aula baixado{i}")
-    url = f"https://assets.univesp.br/disciplinas/COM300/pdf/s{aula}_slides_videoaula{i}.pdf"
-    response = requests.get(url, timeout=60)
-    response.raise_for_status()
+        text: str = i
+    print(f"Slide da aula {aula_caminho} baixado {text}")
+    semana = (i + 2) // 3
+    url = f"https://assets.univesp.br/disciplinas/COM300/pdf/s{semana}_slides_videoaula{i}.pdf"
 
-    content_type = response.headers.get("Content-Type", "")
-
-    if "application/pdf" not in content_type:
-        raise ValueError(
-            f"A resposta não parece ser PDF: {content_type}"
-        )
-
-    arquivo = destino / f"Aula({text}).pdf"
-
-    arquivo.write_bytes(response.content)
+    arquivo = f"Aula({text}).pdf"
+    DownloaderPDF(destino=destino,url=url,arquivo=arquivo)
     i += 1
-
-print(arquivo)

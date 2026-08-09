@@ -1,29 +1,16 @@
-import requests
 from pathlib import Path
-
-destino:Path = Path("Sistemas Computacionais (univesp)/")
+from downloader import DownloaderPDF
+DEBUG = True
+destino: Path = Path("Sistemas Computacionais (univesp)/")
 destino.mkdir(exist_ok=True)
-i:int=1
-while i <=21:
+i: int = 1
+while True:
     if i < 10:
-        text:str = str(f"0{i}")
+        text: str = str(f"0{i}")
     else:
-        text:str = i
+        text: str = i
     print(f"Slide da aula baixado{i}")
     url = f"https://assets.univesp.br/disciplinas/COM210/pdf/slide-videoaula-{text}.pdf"
-    response = requests.get(url, timeout=60)
-    response.raise_for_status()
-
-    content_type = response.headers.get("Content-Type", "")
-
-    if "application/pdf" not in content_type:
-        raise ValueError(
-            f"A resposta não parece ser PDF: {content_type}"
-        )
-
-    arquivo = destino / f"Aula({text}).pdf"
-
-    arquivo.write_bytes(response.content)
+    arquivo = f"Aula({text}).pdf"
+    DownloaderPDF(destino=destino, arquivo=arquivo, url=url)
     i += 1
-
-print(arquivo)
