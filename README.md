@@ -1,4 +1,4 @@
-#EXTRATOR DE PDF
+# EXTRATOR DE PDF
 
 Basicamente, queria adiantar minhas aulas da faculdade e sem querer acabei achando a brecha para fazer download de pdfs de aulas que ainda não estavam disponíveis para mim na plataforma.
 ----
